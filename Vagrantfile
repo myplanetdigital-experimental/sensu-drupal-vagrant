@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "lucid64"
+  config.vm.hostname = "sensu.local"
   config.omnibus.chef_version = "11.6.0"
   config.cache.auto_detect = true
 
