@@ -32,6 +32,28 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define :drupal_client do |drupal|
+    drupal.vm.hostname = "drupal.local"
+    drupal.vm.network :forwarded_port, guest: 80, host: 8081
+    drupal.vm.provision :chef_solo do |chef|
+      chef_default.call(chef)
+      chef.add_recipe "drupal"
+      chef.json = {
+        :drupal => {
+          :version => "7.22",
+        },
+        :drush => {
+          :version => "8.x-6.0-rc3",
+        },
+        :mysql => {
+          :server_debian_password => "root",
+          :server_root_password =>   "root",
+          :server_repl_password =>   "root",
+        },
+      }
+    end
+  end
+
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "3000"]
   end

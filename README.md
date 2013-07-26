@@ -23,3 +23,6 @@ Usage
 
 You can now access your Sensu dashboard at:
 `http://admin:secret@localhost:8080` 
+
+A fresh, non-configured Drupal site is also available at:
+`http://localhost:8081`
