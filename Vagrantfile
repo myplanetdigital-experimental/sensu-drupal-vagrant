@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
     chef.data_bags_path = "data_bags"
     chef.add_recipe "apt"
     chef.add_recipe "vim"
+    chef.add_recipe "curl"
   end
 
   config.vm.define :sensu_master do |sensu|
