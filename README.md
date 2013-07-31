@@ -25,17 +25,17 @@ Run the following commands:
 Usage
 -----
 
-    vagrant up [ sensu | drupal ]
-
-You can now access your Sensu dashboard at:
-`http://admin:secret@localhost:8081`
+    vagrant up [ drupal | sensu ]
 
 A minimally-configured Drupal site with the Production check & Nagios
-modules is also available at:
+modules is now available at:
 
 - `http://localhost:8080`
 - username: `admin`
 - password: `drupaladmin`
+
+You can also access your Sensu dashboard at:
+`http://admin:secret@localhost:8081`
 
 You'll note that Sensu is pre-loaded with a check to monitor the Drupal
 instance.

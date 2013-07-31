@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "lucid64"
   config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
 
-
   config.omnibus.chef_version = "11.6.0"
   config.cache.auto_detect = true
 
@@ -17,23 +16,6 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "apt"
     chef.add_recipe "vim"
     chef.add_recipe "curl"
-  end
-
-  config.vm.define :sensu do |sensu|
-    sensu.vm.network :private_network, ip: "192.168.33.1"
-    sensu.vm.hostname = "sensu.local"
-    sensu.vm.network :forwarded_port, guest: 8080, host: 8081
-    sensu.vm.provision :chef_solo do |chef|
-      chef_default.call(chef)
-      chef.add_recipe "monitor::master"
-      chef.add_recipe "drupal-monitor"
-
-      chef.json = {
-        :sensu => {
-          :use_ssl => false,
-        },
-      }
-    end
   end
 
   config.vm.define :drupal do |drupal|
@@ -64,6 +46,23 @@ Vagrant.configure("2") do |config|
 
     drupal.vm.provision :shell do |sh|
       sh.inline = "cd /var/www/drupal && drush vset nagios_ua 1234567890"
+    end
+  end
+
+  config.vm.define :sensu do |sensu|
+    sensu.vm.network :private_network, ip: "192.168.33.1"
+    sensu.vm.hostname = "sensu.local"
+    sensu.vm.network :forwarded_port, guest: 8080, host: 8081
+    sensu.vm.provision :chef_solo do |chef|
+      chef_default.call(chef)
+      chef.add_recipe "monitor::master"
+      chef.add_recipe "drupal-monitor"
+
+      chef.json = {
+        :sensu => {
+          :use_ssl => false,
+        },
+      }
     end
   end
 
