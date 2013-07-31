@@ -12,6 +12,12 @@ Note: Currently only spins up up Sensu dashboard.
 Setup
 -----
 
+Install Vagrant 1.2+: http://downloads.vagrantup.com/
+
+Run the following commands:
+
+    git clone https://github.com/myplanet-experimental/sensu-drupal-vagrant.git
+    cd sensu-drupal-vagrant
     vagrant plugin install bindler
     vagrant bindler setup
     vagrant plugin bundle
@@ -19,10 +25,17 @@ Setup
 Usage
 -----
 
-    vagrant up
+    vagrant up [ sensu | drupal ]
 
 You can now access your Sensu dashboard at:
-`http://admin:secret@localhost:8080` 
+`http://admin:secret@localhost:8081`
 
-A fresh, non-configured Drupal site is also available at:
-`http://localhost:8081`
+A minimally-configured Drupal site with the Production check & Nagios
+modules is also available at:
+
+- `http://localhost:8080`
+- username: `admin`
+- password: `drupaladmin`
+
+You'll note that Sensu is pre-loaded with a check to monitor the Drupal
+instance.

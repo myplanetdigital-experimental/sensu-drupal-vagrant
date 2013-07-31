@@ -1,0 +1,2 @@
+depends "sensu"
+depends "drupal"

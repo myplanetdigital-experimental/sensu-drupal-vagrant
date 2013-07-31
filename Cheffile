@@ -8,6 +8,8 @@ cookbook 'curl'
 cookbook 'drupal',
   :github => 'mdxp/drupal-cookbook'
 cookbook 'monitor'
+cookbook 'drupal-monitor',
+  :path => 'cookbooks-source/drupal-monitor'
 cookbook 'redis',
   :github => 'miah/chef-redis'
 cookbook "vim"

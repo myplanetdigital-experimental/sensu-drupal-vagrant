@@ -71,10 +71,18 @@ GIT
       stunnel (>= 2.0.0)
       yum (>= 0.0.0)
 
+PATH
+  remote: cookbooks-source/drupal-monitor
+  specs:
+    drupal-monitor (0.0.0)
+      drupal (>= 0.0.0)
+      sensu (>= 0.0.0)
+
 DEPENDENCIES
   apt (>= 0)
   curl (>= 0)
   drupal (>= 0)
+  drupal-monitor (>= 0)
   monitor (>= 0)
   redis (>= 0)
   vim (>= 0)
