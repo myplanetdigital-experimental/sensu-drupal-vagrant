@@ -41,10 +41,10 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "drupal"
       chef.json = {
         :drupal => {
+          :drush => {
+            :version => "7.x-5.9",
+          },
           :version => "7.22",
-        },
-        :drush => {
-          :version => "8.x-6.0-rc3",
         },
         :mysql => {
           :server_debian_password => "root",
