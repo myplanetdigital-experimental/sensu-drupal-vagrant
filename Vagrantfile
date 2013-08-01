@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+current_dir = File.dirname(__FILE__)
+
+require 'json'
+nagios_id = JSON.parse(File.read "#{current_dir}/data_bags/drupal_sites/demo.json")['nagios_id']
+
 Vagrant.configure("2") do |config|
   config.vm.box = "lucid64"
   config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
@@ -45,7 +50,7 @@ Vagrant.configure("2") do |config|
     end
 
     drupal.vm.provision :shell do |sh|
-      sh.inline = "cd /var/www/drupal && drush vset nagios_ua 1234567890"
+      sh.inline = "cd /var/www/drupal && drush vset nagios_ua #{nagios_id}"
     end
   end
 

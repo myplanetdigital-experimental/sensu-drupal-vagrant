@@ -1,8 +1,10 @@
+demo_site = data_bag_item('drupal_sites', 'demo')
+
 sensu_client "drupal" do
-  address "192.168.33.2"
+  address demo_site['address']
   subscriptions ["all", "drupal"]
   additional({
-    :nagios_id => "1234567890",
+    :nagios_id => demo_site['nagios_id'],
   })
 end
 

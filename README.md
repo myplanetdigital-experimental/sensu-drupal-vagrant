@@ -18,7 +18,7 @@ Run the following commands:
 
     git clone https://github.com/myplanet-experimental/sensu-drupal-vagrant.git
     cd sensu-drupal-vagrant
-    vagrant plugin install bindler
+    vagrant plugin install bindler --plugin-version=0.1.3
     vagrant bindler setup
     vagrant plugin bundle
 
