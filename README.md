@@ -39,3 +39,21 @@ You can also access your Sensu dashboard at:
 
 You'll note that Sensu is pre-loaded with a check to monitor the Drupal
 instance.
+
+Extended Testing
+----------------
+
+You should be able to add your own remote drupal sites by cloning the
+demo data bag item within `data_bags/drupal_sites/demo-local.json`.
+You'll want to rename the file and internal `id`, as well as point to
+your remote website. The `nagios_id` is an identifier that must match
+the one you've chosen on your remote site while configuring it with the
+Nagios module.  Please read the Nagios module documentation for further
+details.
+
+Keep in mind that whenever you update a data bag item, you'll need to
+rerun `vagrant provision sensu` before your change will take affect.
+
+*Note that as a precaution, all data bags in the `drupal_sites` directory
+(aside from `demo-local.json`) will be ignored. You may edit
+`.gitignore` to revert this.*

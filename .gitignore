@@ -1,3 +1,7 @@
 cookbooks/
 tmp/
 .vagrant/
+
+# Ignore all but demo as precaution.
+data_bags/drupal_sites
+^data_bags/drupal_sites/demo-local.json

@@ -1,11 +1,15 @@
-demo_site = data_bag_item('drupal_sites', 'demo')
+drupal_sites = data_bag('drupal_sites')
 
-sensu_client "drupal" do
-  address demo_site['address']
-  subscriptions ["all", "drupal"]
-  additional({
-    :nagios_id => demo_site['nagios_id'],
-  })
+drupal_sites.each do |site|
+  site_data = data_bag_item('drupal_sites', site)
+
+  sensu_client "drupal-#{site_data['id']}" do
+    address site_data['address']
+    subscriptions ["all", "drupal"]
+    additional({
+      :nagios_id => site_data['nagios_id'],
+    })
+  end
 end
 
 # check_drupal requires Nagios utils.sh script

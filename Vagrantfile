@@ -4,7 +4,7 @@
 current_dir = File.dirname(__FILE__)
 
 require 'json'
-nagios_id = JSON.parse(File.read "#{current_dir}/data_bags/drupal_sites/demo.json")['nagios_id']
+nagios_id = JSON.parse(File.read "#{current_dir}/data_bags/drupal_sites/demo-local.json")['nagios_id']
 
 Vagrant.configure("2") do |config|
   config.vm.box = "lucid64"
