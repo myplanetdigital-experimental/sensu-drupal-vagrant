@@ -50,7 +50,60 @@ Vagrant.configure("2") do |config|
     end
 
     drupal.vm.provision :shell do |sh|
-      sh.inline = "cd /var/www/drupal && drush vset nagios_ua #{nagios_id}"
+      prod_check_nagios_checks = {
+        "settings" => [
+          "_prod_check_error_reporting",
+          "_prod_check_user_register",
+          "_prod_check_site_mail",
+        ],
+        "server" => [
+          "_prod_check_apc",
+          "_prod_check_dblog_php",
+          "_prod_check_release_notes",
+        ],
+        "performance" => [
+          "_prod_check_page_cache",
+          "_prod_check_page_page_compression",
+          "_prod_check_boost",
+          "_prod_check_block_cache",
+          "_prod_check_preprocess_css",
+          "_prod_check_preprocess_js",
+        ],
+        "security" => [
+          "_prod_check_node_available",
+          "_prod_check_anonymous_rights",
+          "_prod_check_admin_username",
+        ],
+        "modules" => [
+          "_prod_check_contact",
+          "_prod_check_devel",
+          "_prod_check_search_config",
+          "_prod_check_update_status",
+          "_prod_check_webform",
+          "_prod_check_missing_module_files",
+        ],
+        "seo" => [
+          "_prod_check_googleanalytics",
+          "_prod_check_metatag",
+          "_prod_check_page_title",
+          "_prod_check_pathauto",
+          "_prod_check_redirect",
+          "_prod_check_xmlsitemap",
+        ],
+      }
+
+      require 'json'
+      json_string = JSON.generate(prod_check_nagios_checks)
+
+      sh.inline = <<-EOS
+        cd /var/www/drupal
+        drush vset nagios_ua #{nagios_id}
+        drush vset prod_check_enable_nagios 1
+        # Set to 3h rather than 1h dur to cron bug:
+        # https://drupal.org/node/1554872
+        drush vset nagios_cron_duration 180
+        echo '#{json_string}' | drush vset --format=json prod_check_nagios_checks -
+      EOS
     end
   end
 
